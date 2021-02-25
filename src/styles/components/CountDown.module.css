@@ -35,11 +35,11 @@
   margin: 0 0.5rem;
 }
 
-.startCountDown img {
+.countDownBtn img {
   margin-left: 10px;
 }
 
-.startCountDown {
+.countDownBtn {
   width: 100%;
   height: 5rem;
 
@@ -57,6 +57,26 @@
   transition: background-color 0.2s;
 }
 
-.startCountDown:hover {
+.countDownBtn:not(:disabled):hover {
   background: var(--blue-dark);
+}
+
+.countDownBtn.stopCountDownBtn {
+  background: var(--white);
+  color: var(--title);
+}
+
+.countDownBtn.stopCountDownBtn:hover {
+  background: var(--red);
+  color: var(--white);
+}
+.countDownBtn.stopCountDownBtn:hover img {
+  filter: brightness(6);
+}
+
+.countDownBtn:disabled {
+  cursor: not-allowed;
+  color: var(--text);
+  background: var(--white);
+  border-bottom: 4px solid var(--green);
 }

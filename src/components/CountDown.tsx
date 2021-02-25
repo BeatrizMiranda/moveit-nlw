@@ -2,9 +2,13 @@ import React, { useEffect, useState } from "react";
 
 import styles from "../styles/components/CountDown.module.css";
 
+let countDownTimeout: NodeJS.Timeout;
+
 function CountDown() {
-  const [time, setTime] = useState(25 * 60);
-  const [active, setActive] = useState(false);
+  const defaultTime = 0.1 * 60;
+  const [time, setTime] = useState(defaultTime);
+  const [isActive, setIsActive] = useState(false);
+  const [hasFinished, setHasFinished] = useState(false);
 
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
@@ -13,15 +17,46 @@ function CountDown() {
   const [secondsDecimals, secondsUnit] = String(seconds).padStart(2, "0").split("");
 
   useEffect(() => {
-    if (active && time > 0) {
-      setTimeout(() => {
+    if (isActive && time > 0) {
+      countDownTimeout = setTimeout(() => {
         setTime(time - 1);
       }, 1000);
+    } else if (isActive && time === 0) {
+      setHasFinished(true);
+      setIsActive(false);
     }
-  }, [active, time]);
+  }, [isActive, time]);
 
-  const startCountDown = () => {
-    setActive(true);
+  const resetCountDown = () => {
+    clearTimeout(countDownTimeout);
+    setIsActive(false);
+    setTime(defaultTime);
+  };
+
+  const startCountDown = () => setIsActive(true);
+
+  const renderBtn = () => {
+    if (hasFinished) {
+      return (
+        <button disabled className={`${styles.countDownBtn}`}>
+          Ciclo Encerrado <img src="icons/check_circle.svg" />
+        </button>
+      );
+    }
+
+    return isActive ? (
+      <button
+        type="button"
+        className={`${styles.countDownBtn} ${styles.stopCountDownBtn}`}
+        onClick={resetCountDown}
+      >
+        Abandonar o Ciclo <img src="icons/close.svg" />
+      </button>
+    ) : (
+      <button type="button" className={styles.countDownBtn} onClick={startCountDown}>
+        Iniciar um ciclo <img src="icons/play_arrow.svg" />
+      </button>
+    );
   };
 
   return (
@@ -37,9 +72,7 @@ function CountDown() {
           <span>{secondsUnit}</span>
         </div>
       </div>
-      <button type="button" className={styles.startCountDown} onClick={startCountDown}>
-        Iniciar um ciclo <img src="icons/play_arrow.svg" />
-      </button>
+      {renderBtn()}
     </div>
   );
 }
