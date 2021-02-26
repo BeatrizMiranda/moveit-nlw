@@ -4,6 +4,7 @@ export type TChallengesContext = {
   completedChallenges: number;
   experienceToNextLevel: number;
   levelUp: () => void;
+  compleatChallenge: () => void;
   startNewChallenge: () => void;
   resetChallenge: () => void;
   activeChallenge: TChallenge;

@@ -15,7 +15,6 @@ export const ChallengesProvider: React.FC = ({ children }) => {
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
   const startNewChallenge = () => {
-    console.log("aaaaa");
     const randomChallenges = Math.floor(Math.random() * challenges.length);
 
     const challenge = challenges[randomChallenges];
@@ -27,6 +26,22 @@ export const ChallengesProvider: React.FC = ({ children }) => {
     setActiveChallenge(null);
   };
 
+  const compleatChallenge = () => {
+    if (!activeChallenge) return;
+
+    const { amount } = activeChallenge;
+    let finalExp = currentExp + amount;
+
+    if (finalExp >= experienceToNextLevel) {
+      finalExp = finalExp - experienceToNextLevel;
+      levelUp();
+    }
+
+    setCurrentExp(finalExp);
+    setActiveChallenge(null);
+    setCompletedChallenges(completedChallenges + 1);
+  };
+
   return (
     <ChallengesContext.Provider
       value={{
@@ -36,6 +51,7 @@ export const ChallengesProvider: React.FC = ({ children }) => {
         activeChallenge,
         experienceToNextLevel,
         levelUp,
+        compleatChallenge,
         startNewChallenge,
         resetChallenge,
       }}
