@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import challenges from "../../challenges.json";
 import { TChallengesContext } from "../typings/contextChallenges";
 
@@ -12,7 +12,21 @@ export const ChallengesProvider: React.FC = ({ children }) => {
 
   const levelUp = () => setLevel(level + 1);
 
+  useEffect(() => {
+    Notification.requestPermission();
+  }, []);
+
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
+
+  const createNotification = ({ amount }) => {
+    if (Notification.permission === "granted") {
+      new Notification("New Challenge 🎉", {
+        body: `Valendo ${amount}xp`,
+      });
+    }
+
+    new Audio("/notification.mp3").play();
+  };
 
   const startNewChallenge = () => {
     const randomChallenges = Math.floor(Math.random() * challenges.length);
@@ -20,6 +34,8 @@ export const ChallengesProvider: React.FC = ({ children }) => {
     const challenge = challenges[randomChallenges];
 
     setActiveChallenge(challenge);
+
+    createNotification(challenge);
   };
 
   const resetChallenge = () => {

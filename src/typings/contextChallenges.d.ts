@@ -15,3 +15,12 @@ export type TChallenge = {
   description: string;
   amount: number;
 };
+
+export type TCountDownContext = {
+  minutes: number;
+  seconds: number;
+  hasFinished: boolean;
+  isActive: boolean;
+  startCountDown: () => void;
+  resetCountDown: () => void;
+};

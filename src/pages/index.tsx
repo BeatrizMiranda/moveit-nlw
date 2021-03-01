@@ -8,6 +8,7 @@ import Head from "next/head";
 
 import styles from "../styles/components/Home.module.css";
 import ChallengeBox from "../components/ChallengeBox";
+import { CountDownProvider } from "../contexts/CountDownContext";
 
 export default function Home() {
   return (
@@ -16,16 +17,18 @@ export default function Home() {
         <title>Inicio | MoveIt</title>
       </Head>
       <ExperienceBar />
-      <session>
-        <div>
-          <Profile />
-          <CompletedChallenges />
-          <CountDown />
-        </div>
-        <div>
-          <ChallengeBox />
-        </div>
-      </session>
+      <CountDownProvider>
+        <session>
+          <div>
+            <Profile />
+            <CompletedChallenges />
+            <CountDown />
+          </div>
+          <div>
+            <ChallengeBox />
+          </div>
+        </session>
+      </CountDownProvider>
     </div>
   );
 }
