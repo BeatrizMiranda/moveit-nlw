@@ -25,7 +25,7 @@ export default function Home({ level, currentExp, completedChallenges }) {
         </Head>
         <ExperienceBar />
         <CountDownProvider>
-          <session>
+          <div className={styles.session}>
             <div>
               <Profile />
               <CompletedChallenges />
@@ -34,7 +34,7 @@ export default function Home({ level, currentExp, completedChallenges }) {
             <div>
               <ChallengeBox />
             </div>
-          </session>
+          </div>
         </CountDownProvider>
       </div>
     </ChallengesProvider>
