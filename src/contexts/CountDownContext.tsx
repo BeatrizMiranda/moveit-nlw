@@ -38,8 +38,6 @@ export const CountDownProvider: React.FC = ({ children }) => {
 
   const startCountDown = () => setIsActive(true);
 
-  console.log("Context", { minutes, seconds });
-
   return (
     <CountDownContext.Provider
       value={{

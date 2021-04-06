@@ -1,20 +1,38 @@
-import { createContext, useEffect, useState } from "react";
-import challenges from "../../challenges.json";
+import React, { createContext, useEffect, useState } from "react";
 import { TChallengesContext } from "../typings/contextChallenges";
+import challenges from "../../challenges.json";
+import Cookies from "js-cookie";
+import { LevelUpModal } from "../components/LevelUpModal";
 
 export const ChallengesContext = createContext({} as TChallengesContext);
 
-export const ChallengesProvider: React.FC = ({ children }) => {
-  const [level, setLevel] = useState(1);
-  const [currentExp, setCurrentExp] = useState(0);
-  const [completedChallenges, setCompletedChallenges] = useState(0);
+type TChallengesProvider = {
+  level: number;
+  currentExp: number;
+  completedChallenges: number;
+};
+
+export const ChallengesProvider: React.FC<TChallengesProvider> = ({ children, ...props }) => {
+  const [isLevelUpModalOpen, setIsLevelUpModalOpen] = useState(false);
+  const [level, setLevel] = useState(props.level ?? 1);
+  const [currentExp, setCurrentExp] = useState(props.currentExp ?? 0);
+  const [completedChallenges, setCompletedChallenges] = useState(props.completedChallenges ?? 0);
   const [activeChallenge, setActiveChallenge] = useState(null);
 
-  const levelUp = () => setLevel(level + 1);
+  const levelUp = () => {
+    setLevel(level + 1);
+    setIsLevelUpModalOpen(true);
+  };
 
   useEffect(() => {
     Notification.requestPermission();
   }, []);
+
+  useEffect(() => {
+    Cookies.set("level", `${level}`);
+    Cookies.set("currentExp", `${currentExp}`);
+    Cookies.set("completedChallenges", `${completedChallenges}`);
+  }, [level, currentExp, completedChallenges]);
 
   const experienceToNextLevel = Math.pow((level + 1) * 4, 2);
 
@@ -73,6 +91,7 @@ export const ChallengesProvider: React.FC = ({ children }) => {
       }}
     >
       {children}
+      {isLevelUpModalOpen && <LevelUpModal setIsLevelUpModalOpen={setIsLevelUpModalOpen} />}
     </ChallengesContext.Provider>
   );
 };
