@@ -9,10 +9,29 @@
 }
 
 .container .session {
-  flex: 1;
   display: grid;
 
   grid-template-columns: 1fr 1fr;
   gap: 6.25rem;
   align-content: center;
+}
+
+@media (min-width: 768px) {
+  .container .session {
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .container .session {
+    margin-top: 50px;
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .container .session {
+    gap: 3rem;
+  }
 }

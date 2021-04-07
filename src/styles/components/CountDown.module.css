@@ -33,6 +33,7 @@
 .countDownContainer > span {
   font-size: 6.25rem;
   margin: 0 0.5rem;
+  color: var(--dynamic-title);
 }
 
 .countDownBtn img {
@@ -79,4 +80,10 @@
   color: var(--text);
   background: var(--white);
   border-bottom: 4px solid var(--green);
+}
+
+@media (max-width: 768px) {
+  .countDownContainer > div {
+    font-size: 4.5rem;
+  }
 }

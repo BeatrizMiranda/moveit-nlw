@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { GetServerSideProps } from "next";
 
 import CompletedChallenges from "../components/CompletedChallenges";
@@ -7,10 +7,12 @@ import ExperienceBar from "../components/ExperienceBar";
 import Profile from "../components/Profile";
 import Head from "next/head";
 
-import styles from "../styles/components/Home.module.css";
+import Switcher from "../components/Switcher";
 import ChallengeBox from "../components/ChallengeBox";
 import { CountDownProvider } from "../contexts/CountDownContext";
 import { ChallengesProvider } from "../contexts/ChallengesContext";
+import { ThemeProvider } from "../contexts/ThemeContext";
+import styles from "../styles/components/Home.module.css";
 
 export default function Home({ level, currentExp, completedChallenges }) {
   return (
@@ -19,24 +21,27 @@ export default function Home({ level, currentExp, completedChallenges }) {
       currentExp={currentExp}
       completedChallenges={completedChallenges}
     >
-      <div className={styles.container}>
-        <Head>
-          <title>Inicio | MoveIt</title>
-        </Head>
-        <ExperienceBar />
-        <CountDownProvider>
-          <div className={styles.session}>
-            <div>
-              <Profile />
-              <CompletedChallenges />
-              <CountDown />
+      <ThemeProvider>
+        <div className={styles.container}>
+          <Head>
+            <title>Inicio | MoveIt</title>
+          </Head>
+          <Switcher />
+          <ExperienceBar />
+          <CountDownProvider>
+            <div className={styles.session}>
+              <div>
+                <Profile />
+                <CompletedChallenges />
+                <CountDown />
+              </div>
+              <div>
+                <ChallengeBox />
+              </div>
             </div>
-            <div>
-              <ChallengeBox />
-            </div>
-          </div>
-        </CountDownProvider>
-      </div>
+          </CountDownProvider>
+        </div>
+      </ThemeProvider>
     </ChallengesProvider>
   );
 }

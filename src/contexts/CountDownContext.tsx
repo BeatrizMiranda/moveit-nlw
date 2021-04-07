@@ -7,7 +7,7 @@ export const CountDownContext = createContext({} as TCountDownContext);
 let countDownTimeout: NodeJS.Timeout;
 
 export const CountDownProvider: React.FC = ({ children }) => {
-  const defaultTime = 25 * 60;
+  const defaultTime = 0.1 * 60;
   const [time, setTime] = useState(defaultTime);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
