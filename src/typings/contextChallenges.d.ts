@@ -17,10 +17,12 @@ export type TChallenge = {
 };
 
 export type TCountDownContext = {
+  time: number;
   minutes: number;
   seconds: number;
   hasFinished: boolean;
   isActive: boolean;
   startCountDown: () => void;
   resetCountDown: () => void;
+  changeTime: (newTime: number) => void;
 };

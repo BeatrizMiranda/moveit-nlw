@@ -13,6 +13,9 @@
   color: hsl(240, 100%, 95%);
 
   transition: all 500ms;
+  background: transparent;
+  border: none;
+  padding: 0;
 }
 
 .toggle:checked {
@@ -30,11 +33,4 @@
     var(--offset-diagonal) var(--offset-diagonal) 0 var(--ray-size),
     calc(var(--offset-diagonal) * -1) var(--offset-diagonal) 0 var(--ray-size),
     var(--offset-diagonal) calc(var(--offset-diagonal) * -1) 0 var(--ray-size);
-}
-
-.switcherContainer {
-  display: flex;
-  width: 100%;
-  justify-content: flex-end;
-  padding-bottom: 20px;
 }

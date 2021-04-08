@@ -8,12 +8,21 @@
   flex-direction: column;
 }
 
+.headerContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+  padding-bottom: 20px;
+  align-items: center;
+}
+
 .container .session {
   display: grid;
 
   grid-template-columns: 1fr 1fr;
   gap: 6.25rem;
   align-content: center;
+  padding-bottom: 40px;
 }
 
 @media (min-width: 768px) {

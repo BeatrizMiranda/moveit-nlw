@@ -1,13 +1,18 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { TCountDownContext } from "../typings/contextChallenges";
 import { ChallengesContext } from "./ChallengesContext";
+import Cookies from "js-cookie";
 
 export const CountDownContext = createContext({} as TCountDownContext);
 
 let countDownTimeout: NodeJS.Timeout;
 
-export const CountDownProvider: React.FC = ({ children }) => {
-  const defaultTime = 0.1 * 60;
+type TCountDownProvider = {
+  time: number;
+};
+
+export const CountDownProvider: React.FC<TCountDownProvider> = ({ children, ...props }) => {
+  const defaultTime = props.time ?? 25 * 60;
   const [time, setTime] = useState(defaultTime);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
@@ -16,6 +21,8 @@ export const CountDownProvider: React.FC = ({ children }) => {
 
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
+
+  const changeTime = (newTime: number) => setTime(newTime);
 
   useEffect(() => {
     if (isActive && time > 0) {
@@ -28,6 +35,10 @@ export const CountDownProvider: React.FC = ({ children }) => {
       startNewChallenge();
     }
   }, [isActive, time]);
+
+  useEffect(() => {
+    Cookies.set("time", `${time}`);
+  }, [time]);
 
   const resetCountDown = () => {
     clearTimeout(countDownTimeout);
@@ -45,6 +56,8 @@ export const CountDownProvider: React.FC = ({ children }) => {
         seconds,
         hasFinished,
         isActive,
+        time,
+        changeTime,
         startCountDown,
         resetCountDown,
       }}

@@ -12,9 +12,12 @@ const Switcher = () => {
   }, [theme]);
 
   return (
-    <div className={styles.switcherContainer}>
-      <input className={styles.toggle} type="checkbox" onClick={switchTheme} />
-    </div>
+    <input
+      className={styles.toggle}
+      checked={theme === "light"}
+      type="checkbox"
+      onClick={switchTheme}
+    />
   );
 };
 

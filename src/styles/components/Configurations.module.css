@@ -1,0 +1,40 @@
+.open {
+  transform: rotate(-90deg);
+  transition: all 1s;
+}
+
+.close {
+  transform: rotate(90deg);
+  transition: all 1s;
+}
+
+.svg {
+  margin-left: 20px;
+}
+
+.sideBarTimeSelector {
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sideBarTimeSelector button {
+  height: 3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 0;
+  border-radius: 5px;
+  background: var(--green);
+  color: var(--white);
+  width: 100%;
+  box-shadow: 4px 4px 7px rgb(142 136 136 / 85%);
+
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
