@@ -18,6 +18,7 @@ export type TChallenge = {
 
 export type TCountDownContext = {
   time: number;
+  defaultTime: number;
   minutes: number;
   seconds: number;
   hasFinished: boolean;

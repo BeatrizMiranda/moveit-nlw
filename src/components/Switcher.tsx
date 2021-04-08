@@ -14,7 +14,7 @@ const Switcher = () => {
   return (
     <input
       className={styles.toggle}
-      checked={theme === "light"}
+      defaultChecked={theme === "light"}
       type="checkbox"
       onClick={switchTheme}
     />

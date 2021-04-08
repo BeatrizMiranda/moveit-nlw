@@ -12,17 +12,35 @@ type TCountDownProvider = {
 };
 
 export const CountDownProvider: React.FC<TCountDownProvider> = ({ children, ...props }) => {
-  const defaultTime = props.time ?? 25 * 60;
+  const [defaultTime, setDefaultTime] = useState(props.time);
   const [time, setTime] = useState(defaultTime);
   const [isActive, setIsActive] = useState(false);
   const [hasFinished, setHasFinished] = useState(false);
 
-  const { startNewChallenge } = useContext(ChallengesContext);
-
   const minutes = Math.floor(time / 60);
   const seconds = time % 60;
 
-  const changeTime = (newTime: number) => setTime(newTime);
+  const { startNewChallenge } = useContext(ChallengesContext);
+
+  const changeTime = (newTime: number) => {
+    Cookies.set("time", `${newTime}`);
+    setDefaultTime(newTime);
+    setTime(newTime);
+  };
+
+  const startCountDown = () => setIsActive(true);
+
+  const resetCountDown = () => {
+    clearTimeout(countDownTimeout);
+    setHasFinished(false);
+    setIsActive(false);
+    console.log({ defaultTime });
+    setTime(defaultTime);
+  };
+
+  useEffect(() => {
+    Cookies.set("time", `${time}`);
+  }, []);
 
   useEffect(() => {
     if (isActive && time > 0) {
@@ -36,27 +54,15 @@ export const CountDownProvider: React.FC<TCountDownProvider> = ({ children, ...p
     }
   }, [isActive, time]);
 
-  useEffect(() => {
-    Cookies.set("time", `${time}`);
-  }, [time]);
-
-  const resetCountDown = () => {
-    clearTimeout(countDownTimeout);
-    setHasFinished(false);
-    setIsActive(false);
-    setTime(defaultTime);
-  };
-
-  const startCountDown = () => setIsActive(true);
-
   return (
     <CountDownContext.Provider
       value={{
+        time,
+        defaultTime,
         minutes,
         seconds,
-        hasFinished,
         isActive,
-        time,
+        hasFinished,
         changeTime,
         startCountDown,
         resetCountDown,

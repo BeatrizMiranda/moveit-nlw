@@ -6,9 +6,9 @@ import styles from "../styles/components/Configurations.module.css";
 import SideBar from "./SideBar";
 
 function Configurations() {
-  const { time, changeTime } = useContext(CountDownContext);
+  const { defaultTime, changeTime } = useContext(CountDownContext);
 
-  const [newTime, setNewTime] = useState(time / 60);
+  const [newTime, setNewTime] = useState(defaultTime / 60);
   const [isOpenSideBar, setIsOpenSideBar] = useState(false);
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
