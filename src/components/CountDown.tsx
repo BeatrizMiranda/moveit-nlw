@@ -15,7 +15,7 @@ function CountDown() {
     if (hasFinished) {
       return (
         <button disabled className={`${styles.countDownBtn}`}>
-          Ciclo Encerrado <img src="icons/check_circle.svg" />
+          Ciclo Encerrado <img src="icons/check_circle.svg" alt="Ciclo encerrado" />
         </button>
       );
     }
@@ -26,11 +26,11 @@ function CountDown() {
         className={`${styles.countDownBtn} ${styles.stopCountDownBtn}`}
         onClick={resetCountDown}
       >
-        Abandonar o Ciclo <img src="icons/close.svg" />
+        Abandonar o Ciclo <img src="icons/close.svg" alt="leave cycle" />
       </button>
     ) : (
       <button type="button" className={styles.countDownBtn} onClick={startCountDown}>
-        Iniciar um ciclo <img src="icons/play_arrow.svg" />
+        Iniciar um ciclo <img src="icons/play_arrow.svg" alt="start cycle" />
       </button>
     );
   };

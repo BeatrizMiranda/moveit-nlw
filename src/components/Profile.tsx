@@ -9,7 +9,7 @@ const Profile = () => {
     <div className={styles.profileContainer}>
       <img
         src="https://avatars.githubusercontent.com/u/28959326?s=400&u=070b67af18508d9cb49cdffb8712c184892468ab&v=4"
-        alt="Beatriz Miranda"
+        alt="User photo"
       />
       <div>
         <strong>Beatriz Miranda</strong>

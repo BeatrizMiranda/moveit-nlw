@@ -26,7 +26,13 @@ function Configurations() {
       <SideBar closeModal={() => setIsOpenSideBar(false)} isOpen={isOpenSideBar}>
         <div className={styles.sideBarTimeSelector}>
           <div>
-            <input type="number" value={newTime} onChange={handleChange} min="5" />
+            <input
+              type="number"
+              value={newTime}
+              onChange={handleChange}
+              min="5"
+              aria-label="Add a new range of time for you period"
+            />
             <span style={{ marginLeft: "10px" }}>Mins</span>
           </div>
           <button type="button" onClick={handleSave}>

@@ -17,6 +17,7 @@ const Switcher = () => {
       defaultChecked={theme === "light"}
       type="checkbox"
       onClick={switchTheme}
+      aria-label="Switch screen theme"
     />
   );
 };
